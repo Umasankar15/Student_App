@@ -20,14 +20,14 @@ public class StudentApp extends AppCompatActivity{
         studentAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StudentApp.this, StudentAdd.class);
+                Intent intent = new Intent(getApplicationContext(), StudentAdd.class);
                 startActivity(intent);
             }
         });
         studentSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StudentApp.this, StudentSearch.class);
+                Intent intent = new Intent(getApplicationContext(), StudentSearch.class);
                 startActivity(intent);
             }
         });

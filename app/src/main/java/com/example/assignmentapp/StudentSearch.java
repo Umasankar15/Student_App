@@ -2,6 +2,7 @@ package com.example.assignmentapp;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,28 +28,32 @@ public class StudentSearch extends AppCompatActivity {
         btnSrch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor cur = myDB.fetchStudent(Integer.parseInt(_sid.getText().toString()));
+                if (!TextUtils.isEmpty(_sid.getText().toString())) {
+                    Cursor cur = myDB.fetchStudent(Integer.parseInt(_sid.getText().toString()));
 
-                if (cur.getCount() == 0) {
-                    showMessage("Error", "No Student Found");
-                    return;
-                }
+                    if (cur.getCount() == 0) {
+                        showMessage("Error", "No Student Found");
+                        return;
+                    }
 
-                StringBuffer buffer = new StringBuffer();
-                while (cur.moveToNext()) {
-                    buffer.append("ID: " + cur.getString(0) + "\n");  // 0 is index here shows columns in database
-                    buffer.append("Name: " + cur.getString(1) + "\n");
-                    buffer.append("Email: " + cur.getString(2) + "\n");
+                    StringBuffer buffer = new StringBuffer();
+                    while (cur.moveToNext()) {
+                        buffer.append("ID: " + cur.getString(0) + "\n");  // 0 is index here shows columns in database
+                        buffer.append("Name: " + cur.getString(1) + "\n");
+                        buffer.append("Email: " + cur.getString(2) + "\n");
 
-                }
+                    }
 
-                showMessage("Student Details", buffer.toString());
+                    showMessage("Student Details", buffer.toString());
+                    _sid.getText().clear();
+                } else
+                    showMessage("Error", "Please Enter StudentID to search!");
             }
         });
     }
 
     // Method to show database table
-    private void showMessage(String title, String Message) {
+    public void showMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(title);

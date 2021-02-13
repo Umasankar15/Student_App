@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        color = new int[]{Color.BLACK, Color.RED, Color.GREEN, Color.GRAY, Color.YELLOW, Color.CYAN};
+        color = new int[]{Color.BLACK, Color.RED, Color.GREEN, Color.GRAY, Color.YELLOW, Color.CYAN, Color.BLUE};
         screenView = findViewById(R.id.rView);
         colorClick = (Button) findViewById(R.id.btn);
         helloBtn = (Button) findViewById(R.id.hlobtn);
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         helloBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SwitchActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SwitchActivity.class);
                 startActivity(intent);
             }
         });
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         StudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StudentApp.class);
+                Intent intent = new Intent(getApplicationContext(), StudentApp.class);
                 startActivity(intent);
             }
         });

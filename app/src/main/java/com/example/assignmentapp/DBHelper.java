@@ -8,15 +8,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
-    public static final int version = 1;
-    public static final String DATABASE_NAME = "STUDENT.DB";
-    public static final String TABLE_NAME = "STUDENT";
+
+    //Database, version and Table names
+    private static final int version = 1;
+    private static final String DATABASE_NAME = "STUDENT.DB";
+    private static final String TABLE_NAME = "STUDENT";
 
     //Columns
-
-    public static final String COLUMN_1 = "Student_ID";
-    public static final String COLUMN_2 = "Student_NAME";
-    public static final String COLUMN_3 = "Student_Email";
+    private final String COLUMN_1 = "Student_ID";
+    private final String COLUMN_2 = "Student_NAME";
+    private final String COLUMN_3 = "Student_Email";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, version);
@@ -25,11 +26,11 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Creating a table with Student_id and Student Name
-        String CREATE_TABLE_STUDENT = "CREATE TABLE " + TABLE_NAME  + "("
+        String create_table_student = "CREATE TABLE " + TABLE_NAME + "("
                 + COLUMN_1 + " INTEGER PRIMARY KEY NOT NULL ,"
                 + COLUMN_2 + " TEXT NOT NULL ,"
                 + COLUMN_3 + " TEXT) ";
-        db.execSQL(CREATE_TABLE_STUDENT);
+        db.execSQL(create_table_student);
     }
 
     @Override
@@ -42,15 +43,18 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Insert Student Details into the Student DB
-    public boolean insertStudent(int studentId, String studentName, String studentEmail) {
+    public boolean insertStudent(String studentId, String studentName, String studentEmail) {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_1, studentId);
         contentValues.put(COLUMN_2, studentName);
         contentValues.put(COLUMN_3, studentEmail);
         long doInsert = db.insert(TABLE_NAME, null, contentValues);
-        if(doInsert == -1){ return false;}
-        else {return true; }
+        if (doInsert == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public Cursor fetchStudent(int sid){

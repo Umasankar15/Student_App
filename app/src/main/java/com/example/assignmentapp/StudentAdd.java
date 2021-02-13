@@ -1,6 +1,7 @@
 package com.example.assignmentapp;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,14 +29,21 @@ public class StudentAdd extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isInserted = myDB.insertStudent(Integer.parseInt(_sid.getText().toString()), _sname.getText().toString(), _semail.getText().toString());
-                if(isInserted)
-                    Toast.makeText(getApplicationContext(), "Student Added Successfully", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getApplicationContext(), "Error Adding Student", Toast.LENGTH_LONG).show();
-                _sid.getText().clear();
-                _sname.getText().clear();
-                _semail.getText().clear();
+                String student_ID = _sid.getText().toString(),
+                        student_NAME = _sname.getText().toString(),
+                        student_EMAIL = _semail.getText().toString();
+                if (!TextUtils.isEmpty(student_ID) && !TextUtils.isEmpty(student_NAME) && !TextUtils.isEmpty(student_EMAIL)) {
+                    boolean isInserted = myDB.insertStudent(student_ID, student_NAME, student_EMAIL);
+                    if (isInserted)
+                        Toast.makeText(getApplicationContext(), "Student Added Successfully", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Error Adding Student", Toast.LENGTH_LONG).show();
+                    _sid.getText().clear();
+                    _sname.getText().clear();
+                    _semail.getText().clear();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please fill all the Details", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
